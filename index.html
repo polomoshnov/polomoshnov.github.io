@@ -218,7 +218,6 @@
             font-size: 1.2em;
             line-height: 1.7;
             margin-bottom: 40px;
-            padding: 0 20px;
         }
         
         .blog-list {
@@ -231,6 +230,12 @@
         @media (max-width: 768px) {
             .blog-list {
                 grid-template-columns: 1fr;
+            }
+
+            .read-more {
+                margin-top: 20px;
+                text-align: center;
+                width: 100%;
             }
         }
         
@@ -260,12 +265,16 @@
         }
         
         .post-title {
-            color: #00ccff;
             font-size: 1.5em;
             margin-top: 0;
             margin-bottom: 15px;
             text-transform: uppercase;
             letter-spacing: 1px;
+        }
+
+        .post-title a {
+            text-decoration: none;
+            color: #00ccff;
         }
         
         .post-date {
@@ -370,6 +379,7 @@
             border: 2px solid #555;
             color: #63ff63;
             padding: 5px 8px;
+            border-radius: 3px;
         }
     </style>
     <script src="mobile-header.js"></script>
@@ -381,7 +391,7 @@
             <nav class="nav-links">
                 <a href="/">Home</a>
                 <a href="#">About</a>
-                <a href="#" target="_blank">GitHub</a>
+                <a href="https://github.com/polomoshnov" target="_blank">GitHub</a>
                 <a href="#" target="_blank">Telegram</a>
                 <a href="#" target="_blank">YouTube</a>
             </nav>
@@ -391,7 +401,24 @@
     <div class="container">
         <h1>Programmer's Tech Blog <span class="emoji">🖥️</span></h1>
         
-        <p class="intro">Welcome to my digital garage where my growing collection of <span class="highlight">“this might be useful someday”</span> notes serves as a monument to solutions I’ll never remember I already have. Here I write buggy code, hack hardware, and document it all with a grunge aesthetic because sometimes things should look as broken as they are. <code>console.log('Hello, world... probably');</code></p>
+        <p class="intro">Welcome to my digital garage where my growing collection of <span class="highlight">“this might be useful someday”</span> notes serves as a monument to solutions I’ll never remember I already have. Here I write buggy code, hack hardware, and document it all with a grunge aesthetic because sometimes things should look as broken as they are. <br /> <code>console.log('Hello, world... probably');</code></p>
+        
+        <div class="grunge-border"></div>
+        
+        <div class="blog-list">
+            <!-- Blog Post 1 -->
+            <article class="blog-post">
+                <span class="post-date">February 4, 2026</span>
+                <h2 class="post-title"><a href="posts/how-to-install-an-operation-system-on-raspberry-pi/TUTORIAL.html"><span class="emoji">🍓✨</span> Your Raspberry Pi Adventure Begins: Installing the OS!</a></h2>
+                <p class="post-excerpt">Ready to bring your Raspberry Pi to life? Let's jump right in and install its operating system! It's easier than you think. This guide walks through using the Raspberry Pi Imager to get your Pi up and running from scratch.</p>
+                <div class="tags">
+                    <span class="tag">Raspberry Pi</span>
+                    <span class="tag">Tutorial</span>
+                    <span class="tag">Beginner</span>
+                </div>
+                <a href="posts/how-to-install-an-operation-system-on-raspberry-pi/TUTORIAL.html" class="read-more">Read More <span class="emoji">➤</span></a>
+            </article>
+        </div>
         
         <div class="grunge-border"></div>
         
@@ -408,14 +435,14 @@
             
             <div class="social-icons">
                 <a href="#" title="RSS Feed"><i class="fas fa-rss"></i></a>
-                <a href="#" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://github.com/polomoshnov" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
                 <a href="#" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a>
                 <a href="#" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
             </div>
             
             <div class="grunge-border"></div>
             
-            <p style="color: #777; font-size: 0.9em; margin-top: 30px;">No trackers, no cookies, no sells, no monies, just content <br /> HTTP 418 - I'm a teapot. Also © >= 2026 Nodeback.com</p>
+            <p style="color: #777; font-size: 0.9em; margin-top: 30px;">NO TRACKING, NO COOKING, NO SMOKING — JUST CONTENT <br /> HTTP 418 - I'm a teapot. <br /> Also © >= 2026 Nodeback.com</p>
         </div>
     </footer>
 

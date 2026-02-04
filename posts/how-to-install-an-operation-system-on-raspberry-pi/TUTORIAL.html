@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pi Grunge Install</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: #1a1a1a;
+            color: #ccc;
+            margin: 0;
+            padding: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.05"><rect width="100" height="100" fill="none" stroke="%23ff0055" stroke-width="2"/><path d="M0,50 L100,50 M50,0 L50,100" stroke="%2300ccff" stroke-width="1"/></svg>');
+        }
+
+        /* START Header styles */
+        
+        .site-header {
+            background-color: #121212;
+            border-bottom: 3px solid #ff0055;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        .header-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #00ccff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 0px #ff0055;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 1.1em;
+            padding: 8px 15px;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: #ff0055;
+            border: 1px solid #00ccff;
+            background-color: rgba(0, 204, 255, 0.05);
+        }
+        
+        .nav-links a::after {
+            content: ">";
+            color: #ff0055;
+            position: absolute;
+            left: -15px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            opacity: 1;
+        }
+
+        /* END Header styles */
+
+        /* START Footer styles */
+        
+        .site-footer {
+            background-color: #121212;
+            border-top: 3px solid #00ccff;
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+        
+        .footer-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+        
+        .footer-text {
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: #ccc;
+        }
+        
+        .footer-heart {
+            color: #ff0055;
+            font-size: 1.4em;
+            text-shadow: 0 0 5px #ff0055;
+            display: inline-block;
+            animation: pulse 1s ease infinite; 
+        }
+        
+        .stay-tuned {
+            font-size: 1.5em;
+            color: #00ccff;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 0px #ff0055;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .social-icons a {
+            display: inline-block;
+            color: #ccc;
+            font-size: 1.8em;
+            transition: all 0.3s ease;
+            padding: 10px;
+            border: 1px solid transparent;
+            border-radius: 5px;
+        }
+        
+        .social-icons a:hover {
+            color: #ff0055;
+            border-color: #00ccff;
+            transform: scale(1.2);
+        }
+        
+        .social-icons .fa-rss {
+            color: #ffaa00;
+        }
+        
+        .social-icons .fa-github {
+            color: #ccc;
+        }
+        
+        .social-icons .fa-telegram {
+            color: #0088cc;
+        }
+        
+        .social-icons .fa-youtube {
+            color: #ff0000;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.3);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* END Footer styles */
+        
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            border: 3px solid #ff0055;
+            padding: 40px;
+            background-color: rgba(0, 0, 0, 0.6);
+            box-shadow: 15px 15px 0px #00ccff;
+            position: relative;
+            border-radius: 2px;
+            overflow-wrap: break-word;
+        }
+        
+        .container::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px solid #00ccff;
+            z-index: -1;
+            border-radius: 5px;
+        }
+        
+        h1 {
+            color: #ff0055;
+            font-size: 3em;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 3px 3px 0px #00ccff;
+            margin-top: 0;
+            border-bottom: 2px dashed #555;
+            padding-bottom: 10px;
+        }
+        
+        h2 {
+            color: #00ccff;
+            border-left: 5px solid #ff0055;
+            padding-left: 15px;
+            margin-top: 40px;
+            font-size: 1.8em;
+            text-transform: uppercase;
+        }
+        
+        p {
+            line-height: 1.6;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+        
+        .note {
+            background-color: #222;
+            border-left: 4px solid #ffaa00;
+            padding: 15px;
+            margin: 20px 0;
+            font-style: italic;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .step-number {
+            display: inline-block;
+            background-color: #ff0055;
+            color: #000;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+            font-size: 1.5em;
+            margin-right: 15px;
+            border-radius: 50%;
+            border: 2px solid #00ccff;
+        }
+        
+        a {
+            color: #00ccff;
+            text-decoration: none;
+            border-bottom: 1px dashed #00ccff;
+            padding-bottom: 2px;
+        }
+        
+        a:hover {
+            color: #ff0055;
+            border-bottom-style: solid;
+        }
+        
+        img {
+            max-width: 100%;
+            border: 2px solid #555;
+            margin: 20px 0;
+            display: block;
+            filter: grayscale(30%) contrast(110%);
+            transition: all 0.3s ease;
+        }
+        
+        img:hover {
+            border-color: #00ccff;
+            filter: grayscale(0%) contrast(100%);
+        }
+        
+        code {
+            background-color: #252525;
+            border: 2px solid #555;
+            color: #63ff63;
+            padding: 5px 8px;
+            border-radius: 3px;
+        }
+        
+        .highlight {
+            background-color: #ff0055;
+            color: #000;
+            padding: 3px 6px;
+            font-weight: bold;
+            border-radius: 3px;
+        }
+        
+        .emoji {
+            font-size: 1.3em;
+            filter: drop-shadow(1px 1px 0px rgba(255,255,255,0.3));
+        }
+        
+        .grunge-border {
+            height: 20px;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                #ff0055 10px,
+                #ff0055 20px
+            );
+            margin: 30px 0;
+        }
+        
+        .signature {
+            font-family: 'Brush Script MT', cursive;
+            color: #ff0055;
+            font-size: 1.5em;
+            text-align: right;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed #555;
+        }
+        
+        ul {
+            padding-left: 20px;
+            list-style-type: none;
+        }
+        
+        li {
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        li::before {
+            content: ">";
+            color: #ff0055;
+            position: absolute;
+            left: -19px;
+            font-weight: bold;
+        }
+
+        li > .emoji {
+            line-height: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .container {
+                padding: 20px;
+                margin: 20px;
+                box-shadow: 8px 8px 0px #00ccff;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+    <script src="../../mobile-header.js"></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <div class="logo">Nodeback</div>
+            <nav class="nav-links">
+                <a href="/">Home</a>
+                <a href="#">About</a>
+                <a href="https://github.com/polomoshnov" target="_blank">GitHub</a>
+                <a href="#" target="_blank">Telegram</a>
+                <a href="#" target="_blank">YouTube</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1><span class="emoji">🍓✨</span> Your Raspberry Pi Adventure Begins: Installing the OS!</h1>
+        
+        <p>Ready to bring your Raspberry Pi to life? Let's jump right in and install its operating system! It's easier than you think. <span class="emoji">🚀</span></p>
+        
+        <div class="grunge-border"></div>
+        
+        <h2><span class="step-number">1</span>Grab Your Magic Wand <span class="emoji">🧙</span></h2>
+        
+        <p>First, download the <span class="highlight">Raspberry Pi Imager</span> from the official website:<br>
+        <a href="https://www.raspberrypi.com/software/" target="_blank">https://www.raspberrypi.com/software/</a></p>
+        
+        <p>Install it like any other program — easy peasy! <span class="emoji">🎯</span></p>
+        
+        <div class="grunge-border"></div>
+        
+        <h2><span class="step-number">2</span>Fire Up the Imager! <span class="emoji">🔥</span></h2>
+        
+        <p>Open the Imager and select your Raspberry Pi model from the list, then hit <span class="highlight">Next</span>:</p>
+        
+        <img src="1.PNG" alt="Select your Raspberry Pi device">
+        
+        <div class="note">
+            <span class="emoji">📝</span> <strong>Quick Note:</strong> I'm using Raspberry Pi Imager v2.0.6 with a Raspberry Pi 3. Your screens might look <em>slightly</em> different, but you'll be just fine!
+        </div>
+        
+        <div class="grunge-border"></div>
+        
+        <h2><span class="step-number">3</span>Pick Your OS Flavor <span class="emoji">🍦</span></h2>
+        
+        <p>Time to choose an operating system! Click <span class="highlight">Raspberry Pi OS (other)</span> and hit <span class="highlight">Next</span> — that's where the headless (no desktop) version lives:</p>
+        
+        <img src="2.PNG" alt="Choose operating system">
+        
+        <p>Now, select <span class="highlight">Raspberry Pi OS Lite (64-bit)</span> and click <span class="highlight">Next</span>:</p>
+        
+        <img src="3.PNG" alt="Choose Raspberry Pi OS Lite (64-bit)">
+        
+        <div class="grunge-border"></div>
+        
+        <h2><span class="step-number">4</span>Choose Your Canvas <span class="emoji">🎨</span></h2>
+        
+        <p>Pick your SD card from the list — that's where the magic will happen! Click <span class="highlight">Next</span>:</p>
+        
+        <img src="4.PNG" alt="Select your storage device">
+        
+        <div class="grunge-border"></div>
+        
+        <h2><span class="step-number">5</span>Let's Customize! <span class="emoji">🛠️</span></h2>
+        
+        <p>This next part is optional, but <em>highly</em> recommended. Let's set things up right from the start!</p>
+        
+        <p><span class="emoji">🎩</span> <strong>Hostname:</strong> Give your Pi a cool name! Mine is just <code>rpi</code>, but feel free to get creative:</p>
+        
+        <img src="5.PNG" alt="Customization: Choose hostname">
+        
+        <p><span class="emoji">🌍</span> <strong>Localization:</strong> Enter your city and time zone. For <span class="highlight">keyboard layout</span>, choose <code>us</code> — this will save you from keyboard headaches later! <span class="emoji">⌨️</span></p>
+        
+        <img src="6.PNG" alt="Customization: Localization">
+        
+        <p><span class="emoji">👤</span> <strong>User & Password:</strong> Create a username and a strong password. Don't forget these! <span class="emoji">🔐</span></p>
+        
+        <img src="7.PNG" alt="Customization: Choose username">
+        
+        <p><span class="emoji">📶</span> <strong>Wi-Fi Setup:</strong> Enter your Wi-Fi name and password. If you'd rather use a cable, just skip this step and connect your Pi to the router with an Ethernet cord later:</p>
+        
+        <img src="8.PNG" alt="Customization: Choose Wi-Fi">
+        
+        <p><span class="emoji">🔐</span> <strong>SSH Authentication:</strong> Turn <span class="highlight">Enable SSH</span> ON and select <span class="highlight">Use password authentication</span>. This is your golden ticket to connecting from your desktop later! <span class="emoji">🎫</span></p>
+        
+        <img src="9.PNG" alt="Customization: SSH authentication">
+        
+        <p><span class="emoji">📡</span> <strong>Raspberry Pi Connect:</strong> You can safely skip this one — just leave it disabled:</p>
+        
+        <img src="10.PNG" alt="Customization: Raspberry Pi Connect">
+        
+        <div class="grunge-border"></div>
+        
+        <h2><span class="step-number">6</span>Let's Write It! <span class="emoji">✍️</span></h2>
+        
+        <p>All set? Click <span class="highlight">Write</span> to start the installation:</p>
+        
+        <img src="11.PNG" alt="Write the OS to the storage device">
+        
+        <p>You'll see a friendly warning that your SD card will be erased. Click <span class="highlight">I UNDERSTAND, ERASE AND WRITE</span> and let the Imager work its magic:</p>
+        
+        <img src="12.PNG" alt="Notification: You are about to ERASE all data">
+        
+        <p>This might take a few minutes (depending on your internet speed), but grab a snack — it should be done in 5-10 minutes! <span class="emoji">⏳</span></p>
+        
+        <img src="13.PNG" alt="Writing in progress">
+        <img src="14.PNG" alt="Verification in progress">
+        
+        <div class="grunge-border"></div>
+        
+        <h2><span class="step-number">7</span>You Did It! <span class="emoji">🎉</span></h2>
+        
+        <p>When you see <span class="highlight">Write complete!</span>, celebrate! <span class="emoji">🥳</span> Your OS is ready. Now:</p>
+        
+        <ul>
+            <li>Eject the SD card from your computer</li>
+            <li>Pop it into your Raspberry Pi</li>
+            <li>Power it up! <span class="emoji">⚡</span></li>
+        </ul>
+        
+        <img src="15.PNG" alt="Write complete!">
+        
+        <div class="grunge-border"></div>
+        
+        <h2><span class="emoji">🎊</span> Congratulations, Pi Pioneer! <span class="emoji">🎊</span></h2>
+        
+        <p>You've successfully installed an OS on your Raspberry Pi! Give yourself a pat on the back. <span class="emoji">🙌</span></p>
+        
+        <p>In the next tutorials, we'll explore how to actually use your Pi and install awesome software via SSH. The fun is just beginning!</p>
+        
+        <div class="signature">
+            Catch you in the next adventure!<br>
+            — Alex Polo <span class="emoji">🍍</span>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <p class="footer-text">Designs and content hand made by a human being with <span class="footer-heart">❤️</span> (and maybe too much coffee)</p>
+            
+            <div class="grunge-border"></div>
+            
+            <p class="stay-tuned">Stay Tuned</p>
+            
+            <div class="social-icons">
+                <a href="#" title="RSS Feed"><i class="fas fa-rss"></i></a>
+                <a href="https://github.com/polomoshnov" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="#" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a>
+                <a href="#" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+            
+            <div class="grunge-border"></div>
+            
+            <p style="color: #777; font-size: 0.9em; margin-top: 30px;">NO TRACKING, NO COOKING, NO SMOKING — JUST CONTENT <br /> HTTP 418 - I'm a teapot. <br /> Also © >= 2026 Nodeback.com</p>
+        </div>
+    </footer>
+
+    <script src="../../tile-background.js"></script>
+</body>
+</html>
