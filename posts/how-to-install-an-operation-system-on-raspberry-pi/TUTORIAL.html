@@ -5,18 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Raspberry Pi Adventure Begins: Installing the OS!</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Handjet:wght,ELSH@100..900,2&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
         }
         
         body {
-            font-family: 'Courier New', monospace;
             background-color: #1a1a1a;
             color: #ccc;
             margin: 0;
             padding: 0;
             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.05"><rect width="100" height="100" fill="none" stroke="%23ff0055" stroke-width="2"/><path d="M0,50 L100,50 M50,0 L50,100" stroke="%2300ccff" stroke-width="1"/></svg>');
+        }
+
+        body, .silkscreen-regular {
+            font-family: "Silkscreen", monospace;
+            font-weight: 400;
+            font-style: normal;
         }
 
         /* START Header styles */
@@ -32,7 +41,7 @@
         }
         
         .header-container {
-            max-width: 1100px;
+            max-width: 1050px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -102,7 +111,7 @@
         }
         
         .footer-text {
-            font-size: 1.2em;
+            font-size: 18px;
             line-height: 1.8;
             margin-bottom: 30px;
             color: #ccc;
@@ -176,6 +185,13 @@
             }
         }
 
+        .disclaimer {
+            color: #777;
+            font-size: 0.9em;
+            margin-top: 30px;
+            font-size: 15px; 
+        }
+
         /* END Footer styles */
         
         .container {
@@ -203,29 +219,40 @@
         }
         
         h1 {
-            color: #ff0055;
-            font-size: 3em;
+            font-size: 40px;
+            color: #00ccff;
+            text-shadow: 2px 2px 0px #940031;
             text-transform: uppercase;
             letter-spacing: 3px;
-            text-shadow: 3px 3px 0px #00ccff;
             margin-top: 0;
             border-bottom: 2px dashed #555;
-            padding-bottom: 10px;
+            padding-bottom: 40px;
         }
-        
+
         h2 {
-            color: #00ccff;
             border-left: 5px solid #ff0055;
+            color: #00ccff;
+            text-shadow: 2px 2px 0px #940031;
             padding-left: 15px;
             margin-top: 40px;
             font-size: 1.8em;
             text-transform: uppercase;
         }
         
-        p {
+        .container p {
             line-height: 1.6;
-            font-size: 1.1em;
+            font-size: 30px;
             margin-bottom: 20px;
+        }
+
+        .container p, .handjet-font {
+            font-family: "Handjet", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+            font-variation-settings:
+                "ELGR" 1,
+                "ELSH" 2;
         }
         
         .note {
@@ -279,6 +306,7 @@
         }
         
         code {
+            font-family: "Handjet", sans-serif;
             background-color: #252525;
             border: 2px solid #555;
             color: #63ff63;
@@ -312,9 +340,8 @@
         }
         
         .signature {
-            font-family: 'Brush Script MT', cursive;
             color: #ff0055;
-            font-size: 1.5em;
+            font-size: 1.3em;
             text-align: right;
             margin-top: 40px;
             padding-top: 20px;
@@ -520,7 +547,7 @@
             
             <div class="grunge-border"></div>
             
-            <p style="color: #777; font-size: 0.9em; margin-top: 30px;">NO TRACKING, NO COOKING, NO SMOKING — JUST CONTENT <br /> HTTP 418 - I'm a teapot. <br /> Also © >= 2026 Nodeback.com</p>
+            <p class="disclaimer">NO TRACKING, NO COOKING, NO SMOKING — JUST CONTENT <br /> HTTP 418 - I'm a teapot. <br /> Also © >= 2026 Nodeback.com</p>
         </div>
     </footer>
 
