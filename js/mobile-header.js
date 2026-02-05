@@ -1,7 +1,7 @@
 (function() {
     // Check if mobile
     function isMobile() {
-        return window.innerWidth <= 768;
+        return window.innerWidth <= 1020;
     }
     
     // Create toggle button
@@ -18,7 +18,7 @@
         // Add mobile styles
         const style = document.createElement('style');
         style.textContent = `
-            @media (max-width: 768px) {
+            @media (max-width: 1020px) {
                 .nav-toggle {
                     display: block !important;
                     background: none;
@@ -30,6 +30,11 @@
                     position: absolute;
                     right: 10px;
                     top: 10px;
+                }
+
+                .header-container {
+                    flex-direction: column;
+                    gap: 20px;
                 }
                 
                 .site-header {
@@ -72,7 +77,7 @@
                 }
             }
             
-            @media (min-width: 769px) {
+            @media (min-width: 1020px) {
                 .nav-toggle {
                     display: none !important;
                 }
