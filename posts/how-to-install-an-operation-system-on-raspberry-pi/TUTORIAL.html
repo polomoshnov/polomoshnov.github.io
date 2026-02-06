@@ -62,6 +62,8 @@
         }
         
         .logo {
+            position: relative;
+            top: -2px;
             font-size: 1.8em;
             font-weight: bold;
             color: #00ccff;
@@ -69,10 +71,9 @@
             letter-spacing: 2px;
             text-shadow: 2px 2px 0px #ff0055;
         }
-        
+
         .nav-links {
             display: flex;
-            gap: 25px;
         }
         
         .nav-links a {
@@ -130,9 +131,8 @@
         }
         
         .footer-heart {
-            color: #ff0055;
-            font-size: 1.4em;
-            text-shadow: 0 0 5px #ff0055;
+            position: relative;
+            top: 15px;
             display: inline-block;
             animation: pulse 1s ease infinite; 
         }
@@ -164,25 +164,7 @@
         }
         
         .social-icons a:hover {
-            color: #ff0055;
-            border-color: #00ccff;
             transform: scale(1.2);
-        }
-        
-        .social-icons .fa-rss {
-            color: #ffaa00;
-        }
-        
-        .social-icons .fa-github {
-            color: #ccc;
-        }
-        
-        .social-icons .fa-telegram {
-            color: #0088cc;
-        }
-        
-        .social-icons .fa-youtube {
-            color: #ff0000;
         }
 
         @keyframes pulse {
@@ -205,6 +187,98 @@
         }
 
         /* END Footer styles */
+
+        /* START Icons */
+
+        .icon-github:before {
+            content: '';
+            display: inline-block;
+            background-image: url(../../img/icons/github_icon_bg.png);
+            background-size: contain;
+            width: 50px;
+            height: 50px;
+        }
+
+        .icon-telegram:before {
+            content: '';
+            display: inline-block;
+            background-image: url(../../img/icons/telegram_icon_bg.png);
+            background-size: contain;
+            width: 50px;
+            height: 50px;
+        }
+
+        .icon-youtube:before {
+            content: '';
+            display: inline-block;
+            background-image: url(../../img/icons/youtube_icon_bg.png);
+            background-size: contain;
+            width: 50px;
+            height: 50px;
+        }
+
+        .icon-heart:before {
+            content: '';
+            display: inline-block;
+            background-image: url(../../img/icons/heart.png);
+            background-size: contain;
+            width: 50px;
+            height: 50px;
+        }
+
+        .nav-links a {
+            display: flex;
+            align-items: center; 
+            gap: 10px;
+        }
+
+        .icon-home.small:before {
+            content: '';
+            display: inline-block;
+            background-image: url(../../img/icons/computer.png);
+            background-size: contain;
+            width: 30px;
+            height: 30px;
+            position: relative;
+            bottom: -2px;
+        }
+
+        .icon-about.small:before {
+            content: '';
+            display: inline-block;
+            background-image: url(../../img/icons/dog.png);
+            background-size: contain;
+            width: 30px;
+            height: 30px;
+            position: relative;
+            bottom: -2px;
+        }
+
+        .icon-github.small:before {
+            background-image: url(../../img/icons/github_icon.png);
+            width: 30px;
+            height: 30px;
+            position: relative;
+            bottom: -1px;
+        }
+
+        .icon-telegram.small:before {
+            background-image: url(../../img/icons/telegram_icon.png);
+            width: 30px;
+            height: 30px;
+            position: relative;
+            bottom: -4px;
+        }
+
+        .icon-youtube.small:before {
+            background-image: url(../../img/icons/youtube_icon.png);
+            width: 30px;
+            height: 30px;
+            position: relative;
+            bottom: -4px;
+        }
+
+        /* END Icons */
         
         .container {
             max-width: 1000px;
@@ -421,11 +495,11 @@
         <div class="header-container">
             <div class="logo">Nodeback</div>
             <nav class="nav-links">
-                <a href="/">Home</a>
-                <a href="#">About</a>
-                <a href="https://github.com/polomoshnov" target="_blank">GitHub</a>
-                <a href="https://t.me/nodebackcom" target="_blank">Telegram</a>
-                <a href="#" target="_blank">YouTube</a>
+                <a href="/"><i class="icon-home small"></i> Home</a>
+                <a href="#"><i class="icon-about small"></i> About</a>
+                <a href="https://github.com/polomoshnov" target="_blank"><i class="icon-github small"></i> GitHub</a>
+                <a href="https://t.me/nodebackcom" target="_blank"><i class="icon-telegram small"></i> Telegram</a>
+                <a href="#" target="_blank"><i class="icon-youtube small"></i> YouTube</a>
             </nav>
         </div>
     </header>
@@ -555,17 +629,16 @@
 
     <footer class="site-footer">
         <div class="footer-container">
-            <p class="footer-text">Designs and content hand made by a human being with <span class="footer-heart">❤️</span> (and maybe too much coffee)</p>
+            <p class="footer-text">Designs and content hand made by a human being with <i class="footer-heart icon-heart"></i> (and maybe too much coffee)</p>
             
             <div class="grunge-border"></div>
             
             <p class="stay-tuned">Stay Tuned</p>
             
             <div class="social-icons">
-                <a href="#" title="RSS Feed"><i class="fas fa-rss"></i></a>
-                <a href="https://github.com/polomoshnov" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-                <a href="https://t.me/nodebackcom" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a>
-                <a href="#" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="https://github.com/polomoshnov" target="_blank" title="GitHub"><i class="icon-github"></i></a>
+                <a href="https://t.me/nodebackcom" target="_blank" title="Telegram"><i class="icon-telegram"></i></a>
+                <a href="#" target="_blank" title="YouTube"><i class="icon-youtube"></i></a>
             </div>
             
             <div class="grunge-border"></div>
