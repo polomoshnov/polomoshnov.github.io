@@ -38,8 +38,6 @@
     let currentFoodImageIndex = -1;
     let foodImagesLoaded = [];
 
-    let onEatCallback, onGameOverCallback;
-
     // Variables for blinking snake animation
     let blinkAnimationActive = false;
     let blinkIntervalId = null;
@@ -48,12 +46,18 @@
     const BLINK_INTERVAL = 200; // ms between blinks
     let resolveBlinkEndedPromise;
 
+    let onEatCallback, onGameOverCallback, onHeadMoveCallback;
+
     function setOnEatCallback(clb) {
         onEatCallback = clb;
     }
 
     function setOnGameOverCallback(clb) {
         onGameOverCallback = clb;
+    }
+
+    function setOnHeadMoveCallback(clb) {
+        onHeadMoveCallback = clb;
     }
 
     // 4. Public API - Use these functions to interact with the game
@@ -423,6 +427,7 @@
     
     function draw() {
         // Clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);  // For transparent backgrounds
         ctx.fillStyle = config.backgroundColor;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -488,14 +493,14 @@
     // Helper function to draw solid color snake segment
     function drawSolidSnakeSegment(segment, index) {
         if (index === 0) {
+            const x = segment.x * config.gridSize;
+            const y = segment.y * config.gridSize;
+            const w = config.gridSize;
+            const h = config.gridSize;
+
             // Draw head
             ctx.fillStyle = config.snakeHeadColor;
-            ctx.fillRect(
-                segment.x * config.gridSize + 1,
-                segment.y * config.gridSize + 1,
-                config.gridSize - 2,
-                config.gridSize - 2
-            );
+            ctx.fillRect(x + 1, y + 1, w - 2, h - 2);
             
             // Draw eyes
             ctx.fillStyle = '#ffffff';
@@ -526,6 +531,8 @@
             
             ctx.fillRect(leftEyeX, leftEyeY, eyeSize, eyeSize);
             ctx.fillRect(rightEyeX, rightEyeY, eyeSize, eyeSize);
+
+            onHeadMoveCallback?.(x, y, w, h);
         } else {
             // Draw body
             ctx.fillStyle = config.snakeColor;
@@ -593,5 +600,6 @@
         setFoodImages: setFoodImages,
         setOnEatCallback: setOnEatCallback,
         setOnGameOverCallback: setOnGameOverCallback,
+        setOnHeadMoveCallback: setOnHeadMoveCallback,
     };
 })();

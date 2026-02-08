@@ -50,7 +50,6 @@ async function initGame() {
     const canvas = document.createElement('canvas');
 
     const footer = document.getElementsByTagName('footer')[0];
-    const footerContainer = footer.children[0];
 
     const w = footer.offsetWidth, h = footer.offsetHeight;
 
@@ -58,14 +57,11 @@ async function initGame() {
         position: 'absolute',
         left: 0,
         top: 0,
-        width: w + 'px',
-        height: h + 'px',
+        zIndex: 2,
+        pointerEvents: 'none',
     });
 
     footer.style.setProperty('position', 'relative');
-    footerContainer.style.setProperty('position', 'absolute');
-    footerContainer.style.setProperty('left', '50%');
-    footerContainer.style.setProperty('transform', 'translateX(-50%)');
 
     footer.prepend(canvas);
 
@@ -73,12 +69,11 @@ async function initGame() {
 
     SnakeGame.updateConfig({
         gridSize,
-        backgroundColor: window.getComputedStyle(footer).backgroundColor,
+        backgroundColor: 'rgba(255, 0, 0, 0)',
         repeatFoodImages: false,
         snakeColor: '#333333', 
         snakeHeadColor: '#2e2e2e',
         foodColor: '#333333',
-        
     });
 
     // (Decoding this will not give you the satisfaction you seek.)
@@ -97,6 +92,28 @@ async function initGame() {
     });
 
     SnakeGame.setFoodImages(imgs);
+
+    const backgroundCanvas = document.createElement('canvas');
+
+    backgroundCanvas.width = w;
+    backgroundCanvas.height = h;
+
+    Object.assign(backgroundCanvas.style, {
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        zIndex: 1,
+        pointerEvents: 'none',
+    });
+
+    footer.prepend(backgroundCanvas);
+
+    const ctx = backgroundCanvas.getContext('2d');
+    ctx.fillStyle = window.getComputedStyle(footer).backgroundColor;
+
+    SnakeGame.setOnHeadMoveCallback((x, y, w, h) => {
+        ctx.fillRect(x, y, w, h);
+    });
 
     SnakeGame.init(w, h);
 }
