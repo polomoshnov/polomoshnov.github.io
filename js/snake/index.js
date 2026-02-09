@@ -35,15 +35,23 @@ async function initGame() {
 
     function playMusicOnKeyDown() {
         document.addEventListener('keydown', (e) => {
-            if (e.key === ' ' || e.keyCode === 32) return;
-
             switch(e.key.toLowerCase()) {
-                case 'w': case 's': case 'a': case 'd':
-                    musicPlayer.play(null, true);
+                case ' ': case 'w': case 's': case 'a': case 'd':
+                    if (musicPlayer.status !== 'playing') musicPlayer.play(null, true);
                     break;
             }
         }, { once: true });
     }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === ' ') {
+            if (musicPlayer.status === 'playing') {
+                musicPlayer.pause();
+            } else if (musicPlayer.status === 'paused') {
+                musicPlayer.resume();
+            }
+        }
+    });
 
     playMusicOnKeyDown();
 
@@ -111,11 +119,96 @@ async function initGame() {
     const ctx = backgroundCanvas.getContext('2d');
     ctx.fillStyle = window.getComputedStyle(footer).backgroundColor;
 
+    let bubble = document.createElement('div');
+    Object.assign(bubble.style, {
+        position: 'absolute',
+        zIndex: 3,
+        pointerEvents: 'none',
+        opacity: 0,
+        whiteSpace: 'nowrap',
+        fontSize: '20px',
+        fontFamily: '"Handjet", sans-serif',
+    });
+    const style = document.createElement('style');
+        style.textContent = `
+            .cbbl.-right::before, .cbbl.-right::after {
+                right: 20px;
+                
+            }
+
+            .cbbl {
+                transition: none;
+            }
+        `;
+    document.head.appendChild(style);
+    bubble.classList.add('cbbl', '-right');
+    footer.prepend(bubble);
+    let bubbleTimeout;
+    let bubbleTextInd = 0;
+    let bubbleX, bubbleY;
+    const texts = [
+        ["Help me!", 3000],
+        ["I'm hungry!", 3000],
+        ["Plz direct me <br>to the food.", 3000],
+        ["Use the WASD keys <br>on your keyboard.", 7000],
+    ];
+    function changeBubbleText() {
+        const [text, ms] = texts[bubbleTextInd++] || texts[bubbleTextInd = 0];
+        bubble.innerHTML = text;
+        bubble.style.left = (bubbleX  - bubble.offsetWidth + 58) + 'px';
+        bubble.style.top = (bubbleY - gridSize - bubble.offsetHeight - 3) + 'px';
+        bubbleTimeout = setTimeout(changeBubbleText, ms)
+    }
+    
     SnakeGame.setOnHeadMoveCallback((x, y, w, h) => {
         ctx.fillRect(x, y, w, h);
+
+        if (bubble) {
+            bubbleX = x;
+            bubbleY = y;
+            changeBubbleText();
+            bubble.style.opacity = 1;
+        }
+    });
+
+    SnakeGame.setInitialPositionCallback(() => {
+        const el = document.getElementById('snake-controls');
+        const y = el.offsetTop;
+        const x = el.offsetLeft + Math.floor(el.offsetWidth / 2);
+
+        return { x, y };
     });
 
     SnakeGame.init(w, h);
+    
+    SnakeGame.togglePause();
+
+    document.addEventListener('keydown', (e) => {
+        const key = e.key.toLowerCase();
+
+        switch(key) {
+            case 'w': case 's': case 'a': case 'd':
+                clearTimeout(bubbleTimeout);
+                bubble.style.opacity = 0;
+                bubble = null;
+                SnakeGame.togglePause();
+        }
+
+        switch(key) {
+            case 'w':
+                SnakeGame.setDirection(0, -1);
+                break;
+            case 's':
+                SnakeGame.setDirection(0, 1);
+                break;
+            case 'a':
+                SnakeGame.setDirection(-1, 0);
+                break;
+            case 'd':
+                SnakeGame.setDirection(1, 0);
+                break;
+        }
+    }, { once: true });
 }
 
 onScrollPercent(50, () => {

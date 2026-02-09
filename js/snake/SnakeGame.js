@@ -32,7 +32,7 @@
     let lastRenderTime = 0;
     let gridWidth, gridHeight;
     let animationFrameId = null; // For tracking animation frame
-    
+
     // Food images array and tracking
     let foodImages = [];
     let currentFoodImageIndex = -1;
@@ -46,7 +46,7 @@
     const BLINK_INTERVAL = 200; // ms between blinks
     let resolveBlinkEndedPromise;
 
-    let onEatCallback, onGameOverCallback, onHeadMoveCallback;
+    let onEatCallback, onGameOverCallback, onHeadMoveCallback, initialPositionCallback;
 
     function setOnEatCallback(clb) {
         onEatCallback = clb;
@@ -58,6 +58,10 @@
 
     function setOnHeadMoveCallback(clb) {
         onHeadMoveCallback = clb;
+    }
+
+    function setInitialPositionCallback(clb) {
+        initialPositionCallback = clb;
     }
 
     // 4. Public API - Use these functions to interact with the game
@@ -78,11 +82,18 @@
         // Calculate grid dimensions
         gridWidth = Math.floor(width / config.gridSize);
         gridHeight = Math.floor(height / config.gridSize);
-        
-        // Reset game state
-        const startX = Math.floor(gridWidth / 4);
-        const startY = Math.floor(gridHeight / 2);
-        
+
+        let startX, startY;
+
+        if (initialPositionCallback) {
+            const { x, y } = initialPositionCallback();
+            startX = Math.floor(x / gridSize);
+            startY = Math.floor(y / gridSize);
+        } else {
+            startX = Math.floor(gridWidth / 4);
+            startY = Math.floor(gridHeight / 2);
+        }
+
         // Add head
         snake = [
             { x: startX, y: startY }, // Head
@@ -211,11 +222,18 @@
     }
     
     // Set snake direction (call this from UI controls)
+    // SnakeGame.setDirection(0, -1);  // Up
+    // SnakeGame.setDirection(1, 0);   // Right
+    // SnakeGame.setDirection(-1, 0);  // Left
+    // SnakeGame.setDirection(0, 1);   // Down
     function setDirection(x, y) {
         if (gamePaused || !gameRunning) return false;
-        
-        // Prevent 180-degree turns
-        if (direction.x === 0 && x !== 0) {
+
+        // Allow 180-degree turns only if there's only a head and no tail
+        if (snake.length === 1) {
+            nextDirection = { x, y };
+            return true;
+        } else if (direction.x === 0 && x !== 0) {
             nextDirection = { x, y: 0 };
             return true;
         } else if (direction.y === 0 && y !== 0) {
@@ -346,7 +364,7 @@
         const head = { ...snake[0] };
         head.x += direction.x;
         head.y += direction.y;
-        
+
         // Wrap around edges or check boundaries
         if (config.wrapEdges) {
             if (head.x < 0) head.x = gridWidth - 1;
@@ -601,5 +619,6 @@
         setOnEatCallback: setOnEatCallback,
         setOnGameOverCallback: setOnGameOverCallback,
         setOnHeadMoveCallback: setOnHeadMoveCallback,
+        setInitialPositionCallback: setInitialPositionCallback,
     };
 })();
