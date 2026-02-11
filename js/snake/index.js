@@ -7,10 +7,14 @@ async function initGame() {
 
     musicPlayer.setVolume(0.4);
 
+    /*
     // This is a hack to make it possible to open any HTML page of the site 
     // from within a folder named nodeback.com directly in a browser as file:///D:/...
     // and have the player get the correct URLs
     const baseURL = window.location.href.split('nodeback.com/')[0] + 'nodeback.com/audio';
+    */
+    // Switched to `npx http-server`
+    const baseURL = '/audio';
 
     await Promise.all([
         musicPlayer.preload([baseURL + '/8-bit-music.mp3']), 
@@ -128,6 +132,7 @@ async function initGame() {
         whiteSpace: 'nowrap',
         fontSize: '20px',
         fontFamily: '"Handjet", sans-serif',
+        textAlign: 'left',
     });
     const style = document.createElement('style');
         style.textContent = `
@@ -150,7 +155,7 @@ async function initGame() {
         ["Help me!", 3000],
         ["I'm hungry!", 3000],
         ["Plz direct me <br>to the food.", 3000],
-        ["Use the WASD keys <br>on your keyboard.", 7000],
+        ["Use the joystick below<br> or the WASD keys <br>on your keyboard.", 7000],
     ];
     function changeBubbleText() {
         const [text, ms] = texts[bubbleTextInd++] || texts[bubbleTextInd = 0];
@@ -172,11 +177,35 @@ async function initGame() {
     });
 
     SnakeGame.setInitialPositionCallback(() => {
-        const el = document.getElementById('snake-controls');
+        const el = document.getElementsByClassName('joystick-wrapper')[0];
         const y = el.offsetTop;
-        const x = el.offsetLeft + Math.floor(el.offsetWidth / 2);
+        const x = el.offsetLeft + Math.floor(el.offsetWidth / 2) + gridSize * 2;
 
         return { x, y };
+    });
+
+   
+    document.getElementsByClassName('joystick-wrapper')[0].style.zIndex = 3; // Make it not eatable by the snake
+    setupJoystick({
+        touchStartArea: document.getElementsByClassName('joystick-touch-area')[0],
+        container: document.getElementById('joystick-circle'), 
+        handle: document.getElementById('joystick-handle-circle'),
+        directionCallback: (direction) => {
+            switch(direction) {
+                case 'UP':
+                    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'w', bubbles: true }));
+                    break;
+                case 'DOWN':
+                    document.dispatchEvent(new KeyboardEvent('keydown', { key: 's', bubbles: true }));
+                    break;
+                case 'LEFT':
+                    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'a', bubbles: true }));
+                    break;
+                case 'RIGHT':
+                    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'd', bubbles: true }));
+                    break;
+            }
+        },
     });
 
     SnakeGame.init(w, h);

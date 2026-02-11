@@ -1,0 +1,118 @@
+        .joystick-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .joystick-touch-area {
+            position: absolute;
+            width: 100vw;
+            height: 500%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+        }
+        
+        #joystick-square {
+            width: 120px;
+            height: 120px;
+            background-color: #000000;
+            border: 6px solid #FFFFFF;
+            box-shadow: 
+                0 0 0 6px #000000,
+                12px 12px 0 #000000;
+            /* Square edges */
+            border-radius: 0;
+        }
+        
+        #joystick-circle {
+            width: 62px;
+            height: 62px;
+            background-color: #111111;
+            border: 6px solid #1c1c1c;
+            border-radius: 50%;
+            box-shadow: 0 0 0 1px #545454;
+        }
+        
+        .joystick-handle {
+            width: 16px;
+            height: 16px;
+            background-color: #989898;
+            border: 4px solid #757575;
+            box-shadow: inset 0 0 0 3px #2a2a2a, 1px 1px 0 #000000;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: none;
+        }
+        
+        #joystick-handle-circle {
+            border-radius: 50%;
+        }
+        
+        #joystick-handle-square {
+            border-radius: 0;
+        }
+        
+        .joystick-handle.active {
+            background-color: #FF0000;
+        }
+
+        .joystick-container {
+            margin: auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Pixel grid overlay */
+        .joystick-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: linear-gradient(#ffffff 2px, transparent 2px), linear-gradient(90deg, #ffffff 2px, transparent 2px);
+            background-size: 16px 16px;
+            pointer-events: none;
+            opacity: 0.4;
+        }
+
+        /* Hide pixel grid overlay overflow in the corners */ 
+        #joystick-circle::before {
+            border-radius: 50%;
+        }
+        
+        /* Center dot */
+        .joystick-container::after {
+            display: none;
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 6px;
+            height: 6px;
+            background-color: #FF0000;
+            border: 2px solid #000000;
+            box-shadow: 0 0 0 2px #FFFFFF;
+            z-index: 1;
+        }
+        
+        /* Direction indicators */
+        .direction-pixel {
+            display: none;
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #00FF00;
+            border: 2px solid #000000;
+            box-shadow: 0 0 0 2px #000000;
+            z-index: 1;
+        }
+        
+        .direction-pixel.up { top: 15px; left: 50%; transform: translateX(-50%); }
+        .direction-pixel.down { bottom: 15px; left: 50%; transform: translateX(-50%); }
+        .direction-pixel.left { left: 15px; top: 50%; transform: translateY(-50%); }
+        .direction-pixel.right { right: 15px; top: 50%; transform: translateY(-50%); }

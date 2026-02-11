@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Handjet:wght,ELSH@100..900,2&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
     <link href="../../js/snake/cbbl.css" rel="stylesheet">
+    <link href="../../js/joystick/style.css" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
@@ -650,7 +651,16 @@
             
             <div class="grunge-border"></div>
 
-            <p id="snake-controls">To control the snake use <br /> the WASD keys on your keyboard</p>
+            <div class="joystick-wrapper">
+                <div class="joystick-touch-area"></div>
+                <div id="joystick-circle" class="joystick-container">
+                    <div class="direction-pixel up"></div>
+                    <div class="direction-pixel down"></div>
+                    <div class="direction-pixel left"></div>
+                    <div class="direction-pixel right"></div>
+                    <div id="joystick-handle-circle" class="joystick-handle"></div>
+                </div>
+            </div>
             
             <p class="disclaimer">NO TRACKING, NO COOKING, NO SMOKING — JUST CONTENT <br /> HTTP 418 - I'm a teapot. <br /> Also © >= 2026 Nodeback.com</p>
         </div>
@@ -658,6 +668,7 @@
 
     <script src="../../js/AudioPlayer.js"></script>
     <script src="../../js/snake/SnakeGame.js"></script>
+    <script src="../../js/joystick/setupJoystick.js"></script>
     <script src="../../js/snake/index.js"></script>
 </body>
 </html>
